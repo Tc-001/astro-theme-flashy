@@ -1,0 +1,43 @@
+---
+	import Head from "../theme/baseHead.astro"
+	import Header from "../theme/header.astro"
+---
+
+<html lang="en">
+	<head>
+		<Head/>
+		<title>Astro</title>
+		<slot name="header"/>
+	</head>
+	<body>
+		<Header page={Astro.props.page} />
+		<main>
+			<slot/>
+		</main>
+	</body>
+</html>
+
+<style lang="sass">
+	main
+		margin-left: clamp( 0.1rem, 5vw, 5rem)
+		margin-right: clamp( 0.1rem, 5vw, 5rem)
+		animation: bodyIn 1s normal forwards linear
+
+		:global(*)
+			font-family: 'Open Sans', sans-serif
+			font-size: 1.2rem
+			font-weight: 400
+
+		:global(h1)
+			font-family: 'Bungee', cursive
+			font-size: 3rem
+			text-align: center
+			border-bottom: 0.2rem solid gray
+			font-weight: 400
+
+	@keyframes bodyIn
+		0%
+			clip-path: circle(0px at center top)
+		100%
+			clip-path: circle(max(150vw, 150vh) at center top)
+</style>
