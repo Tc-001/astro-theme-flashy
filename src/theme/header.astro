@@ -164,6 +164,8 @@ const {page} = Astro.props
 				width: 6rem
 				transition: background 0.1s, transform 0.3s
 				justify-self: center
+				position: relative
+				z-index: -1
 				.bi
 					position: absolute
 					top: 0
@@ -199,6 +201,7 @@ const {page} = Astro.props
 				text-decoration: none
 				color: white
 				transition: background 0.1s
+				white-space: nowrap
 				&:hover
 					background: var(--theme-col)
 
