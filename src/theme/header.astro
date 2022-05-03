@@ -124,7 +124,7 @@ const {page} = Astro.props
 	</nav>
 </Header>
 
-<style lang="sass">
+<style lang="sass" define:vars={{nav_len: nav.length}}>
 	header
 		--header-height: 3rem
 		--nav-height: 3rem
@@ -187,7 +187,7 @@ const {page} = Astro.props
 		padding: 0
 		display: grid
 		align-items: center
-		grid-template-columns: 1fr 1fr 1fr
+		grid-template-columns: repeat(var(--nav_len), 1fr)
 		height: var(--nav-height)
 		li
 			display: inline

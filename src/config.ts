@@ -13,9 +13,9 @@ export const nav = [
 		icon: "bi:newspaper"
 	},
 	{
-		title: "About me", 
+		title: "About", 
 		url: "/about", 
 		color: "#ea515f", 
 		icon: "bi:info-square"
-	},
+	}
 ]
