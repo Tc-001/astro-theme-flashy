@@ -1,13 +1,22 @@
 ---
 	import Layout from "../layouts/main.astro"
+	import Placeholder from "../theme/placeholder.astro"
 ---
 
 <Layout page={0} >
 	<article>
 		<h1>Hello world!</h1>
+		<img src="https://picsum.photos/500/500.jpg" alt="placeholder" class="rounded-2xl float-right w-1/2 m-2">
 		<p>
 			This is a simple and colorful theme for all you Astro needs!
 		</p>
+		<Placeholder words={50}></Placeholder>
+		<Placeholder words={100}></Placeholder>
+		<Placeholder words={100}></Placeholder>
+		<Placeholder words={100}></Placeholder>
+		<Placeholder words={100}></Placeholder>
+		<Placeholder words={100}></Placeholder>
+
 	</article>
 </Layout>
 
