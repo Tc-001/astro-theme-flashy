@@ -6,13 +6,11 @@
 	const word = (len) => (new Array(len)).fill(0).map(x=>letters[Math.floor(Math.random()*letters.length)])
 
 	const filler = (new Array(words)).fill("").map(() => word(3 + Math.floor(Math.random() * 10)))
-
-	console.log(filler);
 	
 ---
 
 <p>
-	{ filler.map((word) => (word + " ")) }
+	{ filler.map(word => word.join("")).join(" ") }
 </p>
 
 <style>
