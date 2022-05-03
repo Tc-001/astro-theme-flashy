@@ -1,14 +1,15 @@
 ---
 //@ts-ignore
 import X from "astro-xelement"
+import {nav} from "../config"
 
 const {A, Div, I, Header} = X
 
-const nav = [
-	["Home", "/", "#0450b4", "house"],
-	["Blog", "/blog", "#b4418e", "newspaper"],
-	["About me", "/about", "#ea515f", "info-square"],
-]
+//const nav = [
+//	["Home", "/", "#0450b4", "house"],
+//	["Blog", "/blog", "#b4418e", "newspaper"],
+//	["About me", "/about", "#ea515f", "info-square"],
+//]
 
 const {page} = Astro.props
 
@@ -24,7 +25,8 @@ const {page} = Astro.props
 		store.$$navListeners = []
 		store.onNavigate = (ev) => store.$$navListeners.push(ev)
 
-		store.navElements = nav
+		//@ts-ignore could not use "nav" because it converts to "vite_ssr_import"
+		store.navElements = n
 		store.currentPage = page
 
 		store.navigate = (pageIndex) => {
@@ -32,7 +34,7 @@ const {page} = Astro.props
 			store.currentPage = pageIndex
 		}
 	}} 
-	define:vars={{nav, page}}
+	define:vars={{n: nav, page}}
 />
 <Div 
 	class="transition-overlay"
@@ -56,25 +58,25 @@ const {page} = Astro.props
 
 			let page = store.navElements[i]
 
-			el.style.setProperty("--transition-header-color", page[2])
+			el.style.setProperty("--transition-header-color", page.color)
 			el.classList.add("transition")
 
 			setTimeout(() => {
-				el.style.setProperty("--header-col", page[2])
+				el.style.setProperty("--header-col", page.color)
 				el.classList.remove("transition")
 			}, 350);
 
 		})
 	}}
 	class=""
-	style={`--header-col: ${nav[page][2]};`}
+	style={`--header-col: ${nav[page].color};`}
 >
 	<nav>
 		<ul class="navigation">
 			{nav.map((entry, i) => (
 				<li>
 					<A
-						href={entry[1]}
+						href={entry.url}
 						define:vars={{page: entry, i}}
 						@click={(ev, store) => {
 							ev.preventDefault()
@@ -89,8 +91,8 @@ const {page} = Astro.props
 							// actually navigate
 							setTimeout(() => location.href=ev.target.href, 300)
 						}}
-						style={`--theme-col: ${entry[2]}`}
-					>{entry[0]}</A>
+						style={`--theme-col: ${entry.color}`}
+					>{entry.title}</A>
 				</li>
 			))}
 		</ul>
@@ -100,11 +102,11 @@ const {page} = Astro.props
 				store.activeCol = "#fff"
 				store.onNavigate((i) => {
 					let page = store.navElements[i]
-					el.style.setProperty("--col", page[2])
+					el.style.setProperty("--col", page.color)
 					el.style.setProperty("--rot", `${i*90+45}deg`)
 				})
 			}}
-			style={`--col: ${nav[page][2]}; --rot: ${page*90+45}deg`}
+			style={`--col: ${nav[page].color}; --rot: ${page*90+45}deg`}
 		>
 			{nav.map((entry, i) => (
 				<I 
@@ -114,7 +116,7 @@ const {page} = Astro.props
 							el.style.opacity = i==targetI?1:0
 						})
 					}}
-					class={`bi bi-${entry[3]}`}
+					class={`bi bi-${entry.icon.split(":")[1]}`}
 					style={`transform: rotate(${(i*90+45)*-1}deg); opacity: ${page==i?1:0};`}
 				></I>
 			))}
