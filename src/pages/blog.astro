@@ -1,7 +1,9 @@
 ---
 	import Layout from "../layouts/main.astro"
 
-	const articles = await Astro.glob("../blog/*.md")
+	let articles = await Astro.glob("../blog/*.md")
+
+	articles.sort((a,b) => b.file.localeCompare(a.file, undefined, { numeric: true }))
 ---
 
 <Layout page={1}>
