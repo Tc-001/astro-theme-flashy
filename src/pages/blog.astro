@@ -1,15 +1,33 @@
 ---
 	import Layout from "../layouts/main.astro"
+
+	const articles = await Astro.glob("../blog/*.md")
 ---
 
 <Layout page={1}>
-	<article>
-		<h1>News</h1>
-		<p>
-			This is a news page
-		</p>
-	</article>
+	<h1>Blog</h1>
+	{articles.map(article => (
+		<article>
+			<h1 class="post-title">{article.frontmatter.title}</h1>
+			<div>
+				<article.Content />
+			</div>
+		</article>
+	))}
 </Layout>
 
-<style>
+<style lang="sass">
+	article
+		border-left: 0.2rem solid gray
+		margin-top: 5rem
+		margin-bottom: 5rem
+		h1.post-title
+			font-size: 2rem
+			text-align: left
+			padding: 0.3rem
+			background-color: #eee
+		div
+			padding-left: 0.3rem
+			padding-bottom: 0.5rem
+
 </style>
