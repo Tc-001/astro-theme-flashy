@@ -8,29 +8,79 @@
 
 <Layout page={1}>
 	<h1>Blog</h1>
-	{articles.map(article => (
-		<article>
-			<h1 class="post-title">{article.frontmatter.title}</h1>
-			<div>
-				<article.Content />
+	{articles.map(async (article, i) => (
+		<div class="articleWrap">
+			<div class="controls">
+				{i!=0?(
+					<a href={`#${(articles.length-i)+1}`}>
+						<i class="bi bi-caret-up"></i>
+					</a>
+				):""}
+				{i!=articles.length-1?(
+					<a href={`#${(articles.length-i)-1}`}>
+						<i class="bi bi-caret-down"></i>
+					</a>
+				):""}
+				
 			</div>
-		</article>
+			<article>
+				<div class="title" id={(articles.length-i).toString()}>
+					<h1 class="post-title">{article.frontmatter.title}</h1>
+					<div class="readtime">
+						<i class="bi bi-clock"></i>
+						{await fetch(article.file).then(x=>x.text()).then(x=>Math.ceil(x.split(" ").length/200))} min read
+					</div>
+				</div>
+				<div class="content">
+					<article.Content />
+				</div>
+			</article>
+		</div>
 	))}
 </Layout>
 
 <style lang="sass">
-	article
-		border-left: 0.2rem solid gray
+	div.articleWrap
 		margin-top: 5rem
 		margin-bottom: 5rem
-		h1.post-title
-			font-size: 2rem
-			text-align: left
-			padding: 0.3rem
+		display: grid
+		grid-template-columns: 3rem 1fr
+		// Still center the article
+		margin-left: -3rem
+		div.controls
 			background-color: #eee
-			border-top-right-radius: 0.3rem
-		div
-			padding-left: 0.3rem
-			padding-bottom: 0.5rem
+			border-radius: 0.5rem
+			height: min-content
+			width: 2.5rem
+			position: sticky
+			top: 10rem
+			i.bi
+				display: block
+				margin: auto
+				width: 2rem
+				height: 2rem
+				font-size: 2rem
+				color: black
+		article
+			border-left: 0.2rem solid gray
+			div.title
+				scroll-margin-top: 7.2rem
+				padding: 0.3rem
+				background-color: #eee
+				border-top-right-radius: 0.3rem
+				margin-top: 0
+				display: grid
+				grid-template-columns: 1fr max-content
+				border-bottom: 0.2rem solid gray
+				@media screen and (max-width: calc( 2 * 20rem + 8.4rem ))
+					scroll-margin-top: 10.2rem
+				h1
+					margin: 0
+					border: none
+					font-size: 2rem
+					text-align: left
+			div.content
+				padding-left: 0.3rem
+				padding-bottom: 0.5rem
 
 </style>
