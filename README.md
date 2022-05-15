@@ -2,6 +2,8 @@
 
 This is a simple and minimalistic astro theme taking advantage of xelemeent for smooth and seamless page transitions.
 
+![Screenshot 2022-05-15 at 16-31-46 Astro](https://user-images.githubusercontent.com/55956895/168475500-45733ec1-2a1c-44cb-8641-bad180e80a21.png)
+
 ## Nav
 You can chage your nav pages by:
 - Adding a new page in `./src/pages`
